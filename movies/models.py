@@ -3,27 +3,6 @@ from django.urls import reverse
 
 from .utils import to_roman
 
-# Create your models here.
-"""
-Person
-    Id
-    Last Name
-    First Name
-    Aliases
-    Movies as Actor/Actress
-    Movies as Director
-    Movies as Producer
-
-Movie
-    Id
-    Title
-    Release Year
-    Casting (Actors + Actresses)
-    Directors
-    Producers
-
-"""
-
 GENDER_CHOICES = [('female', 'Female'), ('male', 'Male')]
 
 class Person(models.Model):
