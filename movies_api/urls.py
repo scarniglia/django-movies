@@ -7,6 +7,7 @@ from movies_api import views
 router = DefaultRouter()
 router.register(r'persons', views.PersonViewSet)
 router.register(r'movies', views.MovieViewSet)
+router.register(r'categories', views.CategoryViewSet)
 
 # The API URLs are now determined automatically by the router.
 urlpatterns = [
