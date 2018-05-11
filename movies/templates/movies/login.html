@@ -1,0 +1,31 @@
+{% load static widget_tweaks %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{% static 'favicon.png' %}">
+
+    <title>Movies</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'plugins/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+    
+    <link href="{% static 'css/signin.css' %}" rel="stylesheet">
+  </head>
+
+  <body class="text-center">
+    <form class="form-signin" method='post'>
+      {% csrf_token %}
+      <img class="mb-4" src="{% static 'img/movies.png' %}" alt="sc" width="130">
+      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+      <label for="{{ form.username.id_for_label }}" class="sr-only">{{ form.username.label }}</label>
+      {% render_field form.username class+="form-control" placeholder="Username" %}
+      <label for="{{ form.password.id_for_label }}" class="sr-only">{{ form.password.label }}</label>
+      {% render_field form.password class+="form-control" placeholder="Password" %}
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    </form>
+  </body>
+</html>

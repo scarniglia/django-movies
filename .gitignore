@@ -1,0 +1,7 @@
+*.db
+__pycache__
+.sass-cache
+env
+/static/
+db.*
+migrations

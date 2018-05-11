@@ -1,0 +1,8 @@
+{% extends 'movies/base.html' %}
+{% block content %}
+<ul class="list-unstyled">
+  {% for person in persons %}
+  <li><a href="{% url 'movies:person-detail' person.id %}">{{ person }}</a></li>
+  {% endfor %}
+</ul>
+{% endblock %}

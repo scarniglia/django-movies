@@ -1,0 +1,127 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{% static 'favicon.png' %}">
+
+    <title>Movies</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'plugins/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+    <link href="{% static 'css/blog.css' %}" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <div class="container">
+      <header class="blog-header py-3">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+          <div class="col-12 text-center">
+            <a class="blog-header-logo text-dark" href="{% url 'movies:index' %}">Movies</a>
+          </div>
+        </div>
+      </header>
+      
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="{% url 'movies:index' %}">Movies</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Categories
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                {% for category in MOVIES_CATEGORIES %}
+                <a class="dropdown-item"
+                   href="{% url 'movies:category' category.id %}">{{ category }}</a>
+                {% endfor %}
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Persons
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item"
+                   href="{% url 'movies:persons' %}">Persons</a>
+                <a class="dropdown-item"
+                   href="{% url 'movies:persons' 'actors' %}">Actors</a>
+                <a class="dropdown-item"
+                   href="{% url 'movies:persons' 'directors' %}">Directors</a>
+                <a class="dropdown-item"
+                   href="{% url 'movies:persons' 'producers' %}">Producers</a>
+              </div>
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0"
+                method="get"
+                action="{% url 'movies:index' %}"
+                style="margin-right: 10px;">
+            <input class="form-control mr-sm-2" 
+                   type="search" placeholder="Search" 
+                   aria-label="Search"
+                   name="q"
+                   value="{{ q }}">
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+          </form>
+          {% if request.user.is_authenticated %}
+          <div class="dropdown">
+            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Add New
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="{% url 'movies:movie-create' %}">Movie</a>
+              <a class="dropdown-item" href="{% url 'movies:person-create' %}">Person</a>
+            </div>
+          </div>
+          <a href="{% url 'logout' %}" class='btn btn-default'>Logout</a>
+          {% else %}
+          <a href="{% url 'login' %}" class='btn btn-default'>Login</a>
+          {% endif %}
+          
+        </div>
+      </nav>
+
+      <div class="row mb-2">
+        <div class="col-md-12">
+          {% block content %}{% endblock %}
+        </div>
+      </div>
+    </div>
+
+    <footer class="blog-footer">
+      <p>Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+      <p>
+        <a href="#">Back to top</a>
+      </p>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="{% static 'js/jquery-slim.min.js' %}"><\/script>')</script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'plugins/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/holder.min.js' %}"></script>
+    <script>
+      Holder.addTheme('thumb', {
+        bg: '#55595c',
+        fg: '#eceeef',
+        text: 'Thumbnail'
+      });
+    </script>
+  </body>
+</html>

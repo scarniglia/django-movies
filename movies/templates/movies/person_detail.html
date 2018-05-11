@@ -1,0 +1,41 @@
+{% extends 'movies/base.html' %}
+{% block content %}
+<div class='clearfix'>
+<h1 class='float-left'>
+  {{ person }}
+</h1>
+{% if request.user.is_authenticated %}
+<h3 class='float-right'>
+  <a href="{% url 'movies:person-update' person.id %}">Edit</a>
+  | <a href="{% url 'movies:person-delete' person.id %}"
+       class="text-danger"
+       onClick="return confirm('Are you sure?')">Delete</a>
+</h3>
+{% endif %}
+</div>
+<hr />
+{% if person.actor_movies.all.exists %}
+<h4>Movies as actor</h4>
+<ol>
+  {% for movie in person.actor_movies.all %}
+  <li><a href="{% url 'movies:movie-detail' movie.id %}">{{ movie }}</a></li>
+  {% endfor %}
+</ol>
+{% endif %}
+{% if person.director_movies.all.exists %}
+<h4>Movies as director</h4>
+<ol>
+  {% for movie in person.director_movies.all %}
+  <li><a href="{% url 'movies:movie-detail' movie.id %}">{{ movie }}</a></li>
+  {% endfor %}
+</ol>
+{% endif %}
+{% if person.producer_movies.all.exists %}
+<h4>Movies as producer</h4>
+<ol>
+  {% for movie in person.producer_movies.all %}
+  <li><a href="{% url 'movies:movie-detail' movie.id %}">{{ movie }}</a></li>
+  {% endfor %}
+</ol>
+{% endif %}
+{% endblock %}

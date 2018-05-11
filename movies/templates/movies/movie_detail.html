@@ -1,0 +1,44 @@
+{% extends 'movies/base.html' %}
+{% block content %}
+<div class='clearfix'>
+<h1 class='float-left'>
+  {{ movie }} <small class="text-muted">{{ movie.roman_release_year }}</small>
+</h1>
+{% if request.user.is_authenticated %}
+<h3 class='float-right'>
+  <a href="{% url 'movies:movie-update' movie.id %}">Edit</a>
+  | <a href="{% url 'movies:movie-delete' movie.id %}"
+       class="text-danger"
+       onClick="return confirm('Are you sure?')">Delete</a>
+</h3>
+{% endif %}
+</div>
+<hr />
+{% if movie.categories.all.exists %}
+<span>Tags</span>
+<ul class='list-inline'>
+  {% for category in movie.categories.all %}
+  <li class="list-inline-item"><a href="{% url 'movies:category' category.id %}"
+         class="btn btn-primary">{{ category }}</a></li>
+  {% endfor %}
+</ul>
+{% endif %}
+<h4>Casting</h4>
+<ol>
+  {% for person in movie.casting.all %}
+  <li><a href="{% url 'movies:person-detail' person.id %}">{{ person }}</a></li>
+  {% endfor %}
+</ol>
+<h4>Directors</h4>
+<ol>
+  {% for person in movie.directors.all %}
+  <li><a href="{% url 'movies:person-detail' person.id %}">{{ person }}</a></li>
+  {% endfor %}
+</ol>
+<h4>Producers</h4>
+<ol>
+  {% for person in movie.producers.all %}
+  <li><a href="{% url 'movies:person-detail' person.id %}">{{ person }}</a></li>
+  {% endfor %}
+</ol>
+{% endblock %}
